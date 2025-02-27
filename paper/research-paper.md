@@ -40,27 +40,27 @@ The application of artificial intelligence to content creation has evolved signi
 
 ### 2.1 AI-Powered Content Generation
 
-Early content generation systems relied primarily on template-based approaches with limited flexibility and natural language capabilities. The evolution of neural text generation models marked a significant advancement, with sequence-to-sequence architectures (Sutskever et al., 2014) enabling more coherent text generation. The introduction of transformer-based models like BERT (Devlin et al., 2019) and GPT (Radford et al., 2018) fundamentally transformed the landscape of natural language generation.
+Early content generation systems relied primarily on template-based approaches with limited flexibility and natural language capabilities. The evolution of neural text generation models marked a significant advancement, with sequence-to-sequence architectures [13] enabling more coherent text generation. The introduction of transformer-based models like BERT [5] and GPT [12] fundamentally transformed the landscape of natural language generation.
 
-Recent developments in LLMs, including GPT-4 (OpenAI, 2023), PaLM (Chowdhery et al., 2022), and Llama 2 (Meta AI, 2023), have demonstrated unprecedented capabilities in generating human-like text. Cambria and White (2014) documented this evolution in their comprehensive review of NLP research, noting the progression from syntactic to semantic and eventually pragmatic understanding in AI systems.
+Recent developments in LLMs, including GPT-4 [10], PaLM [4], and Llama 2 [8], have demonstrated unprecedented capabilities in generating human-like text. Cambria and White [1] documented this evolution in their comprehensive review of NLP research, noting the progression from syntactic to semantic and eventually pragmatic understanding in AI systems.
 
-However, applying these models to specialized domains like blog creation presents unique challenges. Studies by Zhang et al. (2023) highlighted concerns regarding perceived authenticity when AI-generated content is used in brand communications, suggesting the need for careful adaptation and customization of generalized models for specific applications.
+However, applying these models to specialized domains like blog creation presents unique challenges. Studies by Zhang et al. [18] highlighted concerns regarding perceived authenticity when AI-generated content is used in brand communications, suggesting the need for careful adaptation and customization of generalized models for specific applications.
 
 ### 2.2 Multi-Agent Systems for Task Automation
 
-The concept of multi-agent systems has gained traction as a robust approach to complex task automation. Li and Hoi (2021) demonstrated the effectiveness of specialized agent collaboration in solving multi-faceted problems, while Park et al. (2022) explored the integration of LLMs as cognitive engines for autonomous agents.
+The concept of multi-agent systems has gained traction as a robust approach to complex task automation. Li and Hoi [7] demonstrated the effectiveness of specialized agent collaboration in solving multi-faceted problems, while Park et al. [11] explored the integration of LLMs as cognitive engines for autonomous agents.
 
-Of particular relevance is the work by Nakajima et al. (2023), who developed a framework for coordinating multiple LLM-based agents for collaborative task completion. Their research highlighted the importance of effective agent communication protocols and task decomposition strategies. Similarly, Wu et al. (2023) proposed an architecture where specialized agents handle distinct aspects of complex workflows, showing superior results compared to monolithic approaches.
+Of particular relevance is the work by Nakajima et al. [9], who developed a framework for coordinating multiple LLM-based agents for collaborative task completion. Their research highlighted the importance of effective agent communication protocols and task decomposition strategies. Similarly, Wu et al. [17] proposed an architecture where specialized agents handle distinct aspects of complex workflows, showing superior results compared to monolithic approaches.
 
 Despite these advances, few studies have explored multi-agent systems specifically designed for content creation pipelines, revealing a significant research gap that our work aims to address.
 
 ### 2.3 E-Commerce Applications of Generative AI
 
-Within the e-commerce domain, generative AI has primarily focused on product recommendations, customer service automation, and image generation. Chen and Wang (2022) demonstrated the application of LLMs for generating product descriptions, while Kim et al. (2023) explored autonomous agents for e-commerce decision support.
+Within the e-commerce domain, generative AI has primarily focused on product recommendations, customer service automation, and image generation. Chen and Wang [2] demonstrated the application of LLMs for generating product descriptions, while Kim et al. [6] explored autonomous agents for e-commerce decision support.
 
-A relevant study by Thompson and Garcia (2023) examined how AI-generated content affects consumer purchasing decisions, finding that well-optimized content can significantly increase conversion rates. However, they also noted challenges related to factual accuracy and brand voice consistency.
+A relevant study by Thompson and Garcia [14] examined how AI-generated content affects consumer purchasing decisions, finding that well-optimized content can significantly increase conversion rates. However, they also noted challenges related to factual accuracy and brand voice consistency.
 
-The application of generative AI specifically for blog content in e-commerce contexts remains relatively unexplored. Wang et al. (2023) conducted one of the few studies in this area, examining how generative AI influences travel decision-making content. Their findings suggest that while AI can efficiently produce informative content, maintaining authenticity and trustworthiness requires careful system design and human oversight.
+The application of generative AI specifically for blog content in e-commerce contexts remains relatively unexplored. Wang et al. [15] conducted one of the few studies in this area, examining how generative AI influences travel decision-making content. Their findings suggest that while AI can efficiently produce informative content, maintaining authenticity and trustworthiness requires careful system design and human oversight.
 
 ### 2.4 Research Gap
 
@@ -292,38 +292,38 @@ The AutoBlog AI framework represents a significant step forward in content autom
 
 ## References
 
-1. Cambria, E., & White, B. (2014). Jumping NLP Curves: A Review of Natural Language Processing Research [Review Article]. IEEE Computational Intelligence Magazine, 9(2), 48-57. https://doi.org/10.1109/MCI.2014.2307227
+[1] Cambria, E., & White, B. (2014). Jumping NLP Curves: A Review of Natural Language Processing Research [Review Article]. IEEE Computational Intelligence Magazine, 9(2), 48-57. https://doi.org/10.1109/MCI.2014.2307227
 
-2. Chen, J., & Wang, L. (2022). Generating Personalized Product Descriptions Using Large Language Models. In Proceedings of the International Conference on Electronic Commerce, 215-228.
+[2] Chen, J., & Wang, L. (2022). Generating Personalized Product Descriptions Using Large Language Models. In Proceedings of the International Conference on Electronic Commerce, 215-228.
 
-3. Chowdhery, A., et al. (2022). PaLM: Scaling Language Modeling with Pathways. arXiv preprint arXiv:2204.02311.
+[3] Chowdhery, A., et al. (2022). PaLM: Scaling Language Modeling with Pathways. arXiv preprint arXiv:2204.02311.
 
-4. Content Marketing Institute. (2023). B2B Content Marketing Benchmarks, Budgets, and Trends.
+[4] Content Marketing Institute. (2023). B2B Content Marketing Benchmarks, Budgets, and Trends.
 
-5. Devlin, J., Chang, M. W., Lee, K., & Toutanova, K. (2019). BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. In Proceedings of NAACL-HLT 2019, 4171-4186.
+[5] Devlin, J., Chang, M. W., Lee, K., & Toutanova, K. (2019). BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. In Proceedings of NAACL-HLT 2019, 4171-4186.
 
-6. Kim, J., Park, S., & Lee, H. (2023). Autonomous Agents for E-Commerce Decision Support: A Framework Evaluation. Journal of Electronic Commerce Research, 24(2), 112-128.
+[6] Kim, J., Park, S., & Lee, H. (2023). Autonomous Agents for E-Commerce Decision Support: A Framework Evaluation. Journal of Electronic Commerce Research, 24(2), 112-128.
 
-7. Li, M., & Hoi, S. (2021). Multi-Agent Systems for Complex Task Automation: A Review. AI Communications, 34(3), 217-231.
+[7] Li, M., & Hoi, S. (2021). Multi-Agent Systems for Complex Task Automation: A Review. AI Communications, 34(3), 217-231.
 
-8. Meta AI. (2023). Introducing Llama 2: The Next Generation of Open Source Large Language Models. https://ai.meta.com/blog/llama-2/
+[8] Meta AI. (2023). Introducing Llama 2: The Next Generation of Open Source Large Language Models. https://ai.meta.com/blog/llama-2/
 
-9. Nakajima, Y., Hashimoto, K., & Tsuruoka, Y. (2023). A Framework for Coordinating Multiple LLM-based Agents. arXiv preprint arXiv:2308.01542.
+[9] Nakajima, Y., Hashimoto, K., & Tsuruoka, Y. (2023). A Framework for Coordinating Multiple LLM-based Agents. arXiv preprint arXiv:2308.01542.
 
-10. OpenAI. (2023). GPT-4 Technical Report. arXiv preprint arXiv:2303.08774.
+[10] OpenAI. (2023). GPT-4 Technical Report. arXiv preprint arXiv:2303.08774.
 
-11. Park, J., Cho, K., & Kim, J. (2022). LLMs as Cognitive Engines for Autonomous Agents. In Proceedings of the Conference on Neural Information Processing Systems, 3298-3310.
+[11] Park, J., Cho, K., & Kim, J. (2022). LLMs as Cognitive Engines for Autonomous Agents. In Proceedings of the Conference on Neural Information Processing Systems, 3298-3310.
 
-12. Radford, A., Narasimhan, K., Salimans, T., & Sutskever, I. (2018). Improving Language Understanding by Generative Pre-Training.
+[12] Radford, A., Narasimhan, K., Salimans, T., & Sutskever, I. (2018). Improving Language Understanding by Generative Pre-Training.
 
-13. Sutskever, I., Vinyals, O., & Le, Q. V. (2014). Sequence to Sequence Learning with Neural Networks. In Advances in Neural Information Processing Systems, 3104-3112.
+[13] Sutskever, I., Vinyals, O., & Le, Q. V. (2014). Sequence to Sequence Learning with Neural Networks. In Advances in Neural Information Processing Systems, 3104-3112.
 
-14. Thompson, R., & Garcia, A. (2023). Impact of AI-Generated Content on Consumer Purchasing Decisions in E-Commerce. International Journal of Digital Marketing, 15(4), 289-304.
+[14] Thompson, R., & Garcia, A. (2023). Impact of AI-Generated Content on Consumer Purchasing Decisions in E-Commerce. International Journal of Digital Marketing, 15(4), 289-304.
 
-15. Wang, Y., Chen, X., & Thompson, L. (2023). Autonomous Travel Decision-making: An Early Glimpse into ChatGPT and Generative AI. Journal of Travel Research. https://doi.org/10.1177/00472875231181391
+[15] Wang, Y., Chen, X., & Thompson, L. (2023). Autonomous Travel Decision-making: An Early Glimpse into ChatGPT and Generative AI. Journal of Travel Research. https://doi.org/10.1177/00472875231181391
 
-16. WordPress. (2023). WordPress Statistics: Market Share, Usage, and Growth.
+[16] WordPress. (2023). WordPress Statistics: Market Share, Usage, and Growth.
 
-17. Wu, C., Zhou, Y., & Li, T. (2023). Task-Specific Agent Collaboration for Complex Problem Solving. In Proceedings of the International Conference on Autonomous Agents and Multiagent Systems, 451-463.
+[17] Wu, C., Zhou, Y., & Li, T. (2023). Task-Specific Agent Collaboration for Complex Problem Solving. In Proceedings of the International Conference on Autonomous Agents and Multiagent Systems, 451-463.
 
-18. Zhang, L., Chen, X., & Kumar, S. (2023). Do You Create Your Content Yourself? Using Generative Artificial Intelligence for Social Media Content Creation Diminishes Perceived Brand Authenticity. Journal of Interactive Marketing. https://doi.org/10.1016/j.intmar.2023.08.001
+[18] Zhang, L., Chen, X., & Kumar, S. (2023). Do You Create Your Content Yourself? Using Generative Artificial Intelligence for Social Media Content Creation Diminishes Perceived Brand Authenticity. Journal of Interactive Marketing. https://doi.org/10.1016/j.intmar.2023.08.001
