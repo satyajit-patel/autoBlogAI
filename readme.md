@@ -22,7 +22,9 @@ The agents operate within a coordinated workflow orchestrated by a central contr
 After extensive evaluation of available LLMs, we selected two base models for our framework: DeepSeek-R1:7B for resource-constrained deployments and GROQ-mixtral-8x7b-32768 for applications requiring enhanced performance. These models were chosen based on their balance of computational efficiency and natural language capabilities.
 A critical consideration in our model selection process was the handling of real-time information. Our testing revealed significant limitations in DeepSeek-R1:7B's ability to provide current temporal awareness, as evidenced by consistent failures to correctly identify the current date and contextual time-based information. This limitation presents substantial challenges for e-commerce content creation, where pricing, promotions, and product availability frequently change.
 
-<img src="./paper/realTimeData.png" alt="llm fails to give real time data" width="100" height="100">
+<p align="center">
+  <img src="./paper/realTimeData.png" alt="llm fails to give real time data" width="300" height="200">
+</p>
 
 To mitigate these limitations while still leveraging DeepSeek-R1's computational efficiency, our implementation incorporates real-time data injection mechanisms that ensure temporal accuracy regardless of model limitations. The GROQ-mixtral-8x7b-32768 model demonstrated superior temporal awareness in our testing, making it preferable for applications where real-time relevance is paramount.
 To adapt these general-purpose models for specialized blog content generation, we employed parameter-efficient fine-tuning techniques:
