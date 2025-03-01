@@ -57,3 +57,37 @@ The Content Generation Agent transforms structured data into coherent, engaging 
 
 ![llm for SEO](./paper/seo_llm_heatmap.png)
 
+## Installation & Setup
+
+### 1️ Clone the Repository
+```
+git clone https://github.com/satyajit-patel/autoBlogAI.git
+cd autoBlogAI
+```
+
+### 2 Backend
+
+#### Configure Environment Variables
+
+```
+cd express-backend
+npm install
+node server.js
+```
+
+```
+cd flask-backend
+python -m venv venv
+venv\Scripts\activate
+pip install requirements.txt
+python main.py
+```
+
+### 3 Frontend
+```
+cd frontend
+npm install
+npm run dev
+```
+
+
