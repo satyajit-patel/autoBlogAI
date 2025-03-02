@@ -47,13 +47,21 @@ def scrape(url):
 
 # ----------------------------------- Multi Agent -------------------------------------------------------------
 
+print("****************************************************************************************************")
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
+PEXELS_API_KEY = os.environ.get("PEXELS_API_KEY")
+DEEPSEEK_API_KEY=os.environ.get("DEEPSEEK_API_KEY")
+PORT = int(os.environ.get("PORT"))
+print(GROQ_API_KEY, PEXELS_API_KEY, DEEPSEEK_API_KEY, PORT)
+print("****************************************************************************************************")
+
 def generate_blog_content(title, scrape_content):
     """Generate blog content using the Groq API."""
     if not scrape_content or "[ERROR]" in scrape_content:
         return "[ERROR] Invalid scrape content"
     try:
         client = Groq(
-            api_key=os.environ.get("GROQ_API_KEY"),
+            api_key=GROQ_API_KEY,
         )
         
         prompt = f"""Write a professional blog on the topic: '{title}'. 
@@ -98,7 +106,7 @@ def generate_optimized_title(original_title, blog_content):
     """Generate an SEO-optimized title based on the original title and blog content."""
     try:
         client = Groq(
-            api_key=os.environ.get("GROQ_API_KEY"),
+            api_key=GROQ_API_KEY,
         )
         
         prompt = f"""Based on the following original title and blog content, create a new, SEO-optimized title that:
@@ -140,7 +148,7 @@ def get_image_url(title):
     """Get a relevant image URL from Pexels API based on the title."""
     try:
         url = "https://api.pexels.com/v1/search"
-        headers = {"Authorization": os.environ.get("PEXELS_API_KEY")}
+        headers = {"Authorization": PEXELS_API_KEY}
         params = {"query": title, "per_page": 1}
 
         response = requests.get(url, headers=headers, params=params, timeout=10)
@@ -167,7 +175,7 @@ def make_SEO_optimisation(title, blog_content, image_url):
     try:
         client = OpenAI(
             base_url="https://openrouter.ai/api/v1",
-            api_key=os.environ.get("DEEPSEEK_API_KEY"),
+            api_key=DEEPSEEK_API_KEY,
         )
         
         prompt = f"""Transform this blog content into an SEO-optimized HTML page with inline CSS styling.
@@ -370,6 +378,5 @@ def auto_publish():
 
 # ----------------------------------- Run -------------------------------------------------------------
 
-port = int(os.environ.get("PORT"))
 if __name__ == "__main__":
-    app.run(debug=True, port=port)
+    app.run(debug=True, port=5000)
