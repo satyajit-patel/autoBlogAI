@@ -19,6 +19,7 @@ CORS(app)
 def serve_frontend():
     return app.send_static_file("index.html")
 
+# ----------------------------------- Data Scrape -------------------------------------------------------------
 
 def scrape(url):
     """Scrape content from the provided URL."""
@@ -44,6 +45,7 @@ def scrape(url):
         print(error_msg)
         return error_msg
 
+# ----------------------------------- Multi Agent -------------------------------------------------------------
 
 def generate_blog_content(title, scrape_content):
     """Generate blog content using the Groq API."""
@@ -56,19 +58,19 @@ def generate_blog_content(title, scrape_content):
         
         prompt = f"""Write a professional blog on the topic: '{title}'. 
         
-The blog should be well-structured, engaging, and informative, with a formal yet conversational tone. 
-Incorporate insights from this real-time data where relevant: 
+        The blog should be well-structured, engaging, and informative, with a formal yet conversational tone. 
+        Incorporate insights from this real-time data where relevant: 
 
-{scrape_content}
+        {scrape_content}
 
-Make the blog compelling with:
-- A strong, attention-grabbing introduction
-- Clear section headings
-- Concise paragraphs with valuable information
-- Real-world examples or case studies
-- A conclusion that summarizes key points and leaves the reader with something to think about
+        Make the blog compelling with:
+        - A strong, attention-grabbing introduction
+        - Clear section headings
+        - Concise paragraphs with valuable information
+        - Real-world examples or case studies
+        - A conclusion that summarizes key points and leaves the reader with something to think about
 
-Aim for around 1000-1500 words, focus on readability, and ensure the content provides genuine value to readers interested in this topic."""
+        Aim for around 1000-1500 words, focus on readability, and ensure the content provides genuine value to readers interested in this topic."""
 
         chat_completion = client.chat.completions.create(
             messages=[
@@ -100,17 +102,17 @@ def generate_optimized_title(original_title, blog_content):
         )
         
         prompt = f"""Based on the following original title and blog content, create a new, SEO-optimized title that:
-1. Is more engaging and clickable than the original
-2. Contains keywords that are likely to rank well
-3. Accurately represents the content
-4. Is under 60 characters
-5. Has a hook that creates curiosity
+        1. Is more engaging and clickable than the original
+        2. Contains keywords that are likely to rank well
+        3. Accurately represents the content
+        4. Is under 60 characters
+        5. Has a hook that creates curiosity
 
-Original title: {original_title}
+        Original title: {original_title}
 
-Blog content (first 500 chars only): {blog_content[:500]}
+        Blog content (first 500 chars only): {blog_content[:500]}
 
-Provide ONLY the new title, with no additional commentary."""
+        Provide ONLY the new title, with no additional commentary."""
 
         chat_completion = client.chat.completions.create(
             messages=[
@@ -170,30 +172,30 @@ def make_SEO_optimisation(title, blog_content, image_url):
         
         prompt = f"""Transform this blog content into an SEO-optimized HTML page with inline CSS styling.
         
-TITLE: {title}
+        TITLE: {title}
 
-BLOG CONTENT:
-{blog_content[:4000]}  # Limiting to avoid token limits
+        BLOG CONTENT:
+        {blog_content[:4000]}  # Limiting to avoid token limits
 
-FEATURED IMAGE URL: {image_url}
+        FEATURED IMAGE URL: {image_url}
 
-Requirements:
-1. Create HTML with inline CSS that makes the blog visually appealing and easy to read
-2. Use a responsive design that works well on mobile and desktop
-3. Include proper semantic HTML elements (h1, h2, p, etc.)
-4. Optimize for SEO with:
-   - Proper heading hierarchy
-   - Meta description (commented at the top)
-   - Alt text for images
-   - Internal linking where appropriate
-   - Keyword-rich but natural content
-5. Add a featured image at the top using the provided image URL
-6. Create a table of contents
-7. Include social sharing buttons
-8. Add a CTA at the end
-9. Make sure the design is modern, clean, and professional
+        Requirements:
+        1. Create HTML with inline CSS that makes the blog visually appealing and easy to read
+        2. Use a responsive design that works well on mobile and desktop
+        3. Include proper semantic HTML elements (h1, h2, p, etc.)
+        4. Optimize for SEO with:
+        - Proper heading hierarchy
+        - Meta description (commented at the top)
+        - Alt text for images
+        - Internal linking where appropriate
+        - Keyword-rich but natural content
+        5. Add a featured image at the top using the provided image URL
+        6. Create a table of contents
+        7. Include social sharing buttons
+        8. Add a CTA at the end
+        9. Make sure the design is modern, clean, and professional
 
-Return ONLY the complete HTML+CSS code with no additional commentary."""
+        Return ONLY the complete HTML+CSS code with no additional commentary."""
 
         completion = client.chat.completions.create(
             model="deepseek/deepseek-r1:free",
@@ -321,24 +323,29 @@ def auto_publish():
         scrape_content = scrape(url)
         if "[ERROR]" in scrape_content:
             return jsonify({"error": scrape_content}), 500
+        # print(scrape_content)
             
         # Step 2: Generate blog content
         print("Generating blog content...")
         blog_content = generate_blog_content(original_title, scrape_content)
         if "[ERROR]" in blog_content:
             return jsonify({"error": blog_content}), 500
+        # print(blog_content)
             
         # Step 3: Generate optimized title
         print("Creating optimized title...")
         optimized_title = generate_optimized_title(original_title, blog_content)
+        # print(optimized_title)
         
         # Step 4: Get image URL based on the new title
         print("Retrieving relevant image...")
         image_url = get_image_url(optimized_title)
+        # print(image_url)
         
         # Step 5: SEO optimization with DeepSeek
         print("Performing SEO optimization...")
         optimised_content = make_SEO_optimisation(optimized_title, blog_content, image_url)
+        # print(optimised_content)
         
         # Step 6: Publish the blog
         print("Publishing blog...")
@@ -346,6 +353,7 @@ def auto_publish():
         
         if "[ERROR]" in blog_link:
             return jsonify({"error": blog_link}), 500
+        # print(blog_link)
             
         # Return success with both links and the new title
         return jsonify({
@@ -360,7 +368,8 @@ def auto_publish():
         print(error_msg)
         return jsonify({"error": error_msg}), 500
 
+# ----------------------------------- Run -------------------------------------------------------------
 
+port = int(os.environ.get("PORT"))
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
     app.run(debug=True, port=port)
