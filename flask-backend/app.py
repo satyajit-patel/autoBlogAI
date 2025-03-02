@@ -52,7 +52,10 @@ GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
 PEXELS_API_KEY = os.environ.get("PEXELS_API_KEY")
 DEEPSEEK_API_KEY=os.environ.get("DEEPSEEK_API_KEY")
 PORT = int(os.environ.get("PORT"))
-print(GROQ_API_KEY, PEXELS_API_KEY, DEEPSEEK_API_KEY, PORT)
+print(PORT)
+print(GROQ_API_KEY)
+print(DEEPSEEK_API_KEY)
+print(PEXELS_API_KEY)
 print("****************************************************************************************************")
 
 def generate_blog_content(title, scrape_content):
@@ -379,4 +382,4 @@ def auto_publish():
 # ----------------------------------- Run -------------------------------------------------------------
 
 if __name__ == "__main__":
-    app.run(debug=True, port=PORT)
+    app.run(host="0.0.0.0", port=PORT, debug=True)
