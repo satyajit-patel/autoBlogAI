@@ -12,7 +12,8 @@ function App() {
   const [link, setLink] = useState("");
   const [error, setError] = useState("");
 
-  VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+  const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+  console.log("** ", VITE_BACKEND_URL, " **");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,6 +29,7 @@ function App() {
       });
       setLink(response.data.link);
     } catch (err) {
+      console.log(err.message);
       setError("Something went wrong, please try again.");
     } finally {
       setIsloading(false);
@@ -77,7 +79,7 @@ function App() {
                 (Get it{" "}
                 <a
                   className="text-blue-400 hover:text-blue-500 underline"
-                  href="https://developers.google.com/oauthplayground/?code=4/0AQSTgQGnApI9U-s6kiiURM5_MrKNjRYI1dYV81GNvw9kRhxk9mCk_I3iyRJz6z1YXs2BHQ&scope=https://www.googleapis.com/auth/blogger"
+                  href="https://developers.google.com/oauthplayground/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

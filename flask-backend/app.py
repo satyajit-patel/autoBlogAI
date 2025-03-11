@@ -173,14 +173,12 @@ def get_image_url(title):
 
 
 def make_SEO_optimisation(title, blog_content, image_url):
-    """Optimize blog content for SEO using DeepSeek API."""
+    """Optimize blog content for SEO using DeepSeek API through OpenRouter."""
     if not blog_content or "[ERROR]" in blog_content:
         return "[ERROR] Invalid blog content"
     try:
-        client = OpenAI(
-            base_url="https://openrouter.ai/api/v1",
-            api_key=DEEPSEEK_API_KEY,
-        )
+        import requests
+        import json
         
         prompt = f"""Transform this blog content into an SEO-optimized HTML page with inline CSS styling.
         
@@ -209,79 +207,43 @@ def make_SEO_optimisation(title, blog_content, image_url):
 
         Return ONLY the complete HTML+CSS code with no additional commentary."""
 
-        completion = client.chat.completions.create(
-            model="deepseek/deepseek-r1:free",
-            messages=[
-                {"role": "system", "content": "You are an expert in SEO and web design, specializing in creating beautiful, optimized blog content with HTML and CSS."},
-                {"role": "user", "content": prompt}
-            ],
-            max_tokens=4000
+        response = requests.post(
+            url="https://openrouter.ai/api/v1/chat/completions",
+            headers={
+                "Authorization": f"Bearer {DEEPSEEK_API_KEY}",
+                "Content-Type": "application/json",
+                # "HTTP-Referer": "YOUR_SITE_URL",  # Replace with your actual site URL
+                # "X-Title": "YOUR_SITE_NAME",  # Replace with your actual site name
+            },
+            data=json.dumps({
+                "model": "deepseek/deepseek-r1:free",
+                "messages": [
+                    {
+                        "role": "system", 
+                        "content": "You are an expert in SEO and web design, specializing in creating beautiful, optimized blog content with HTML and CSS."
+                    },
+                    {
+                        "role": "user", 
+                        "content": prompt
+                    }
+                ],
+                "max_tokens": 4000
+            })
         )
         
-        content = completion.choices[0].message.content
+        # Parse the JSON response
+        result = response.json()
         
-        # Add fallback if no content is returned
-        if not content or len(content) < 100:
-            # Simple HTML wrapper as fallback
-            fallback_html = """
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <title>{0}</title>
-                <meta name="viewport" content="width=device-width, initial-scale=1">
-                <style>
-                    body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; max-width: 900px; margin: 0 auto; }
-                    img { max-width: 100%; height: auto; display: block; margin: 20px auto; }
-                    h1 { color: #333; }
-                    h2 { color: #444; margin-top: 30px; }
-                    p { margin-bottom: 20px; }
-                </style>
-            </head>
-            <body>
-                <h1>{0}</h1>
-                <img src="{1}" alt="{0}" />
-                {2}
-            </body>
-            </html>
-            """.format(
-                title,
-                image_url,
-                blog_content.replace('\n', '<br>')
-            )
-            content = fallback_html
+        # Extract the content from the response
+        content = result["choices"][0]["message"]["content"]
         
         print("SEO optimization completed")
         return content
+        
     except Exception as e:
         error_msg = f"[ERROR] SEO optimization failed: {e}"
         print(error_msg)
-        # Simple HTML wrapper as fallback
-        fallback_html = """
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>{0}</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <style>
-                body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; max-width: 900px; margin: 0 auto; }
-                img { max-width: 100%; height: auto; display: block; margin: 20px auto; }
-                h1 { color: #333; }
-                h2 { color: #444; margin-top: 30px; }
-                p { margin-bottom: 20px; }
-            </style>
-        </head>
-        <body>
-            <h1>{0}</h1>
-            <img src="{1}" alt="{0}" />
-            {2}
-        </body>
-        </html>
-        """.format(
-            title,
-            image_url,
-            blog_content.replace('\n', '<br>')
-        )
-        return fallback_html
+        return f"[ERROR] SEO optimization failed: {str(e)}"
 
 
 def publish_blog(title, accessToken, blogId, optimised_content):
@@ -321,6 +283,11 @@ def auto_publish():
         original_title = data.get("title")
         accessToken = data.get("accessToken")
         blogId = data.get("blogId")
+
+        print(url)
+        print(original)
+        print(accessToken)
+        print(blogId)
         
         # Validate required fields
         if not all([url, original_title, accessToken, blogId]):
