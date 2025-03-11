@@ -210,7 +210,7 @@ def make_SEO_optimisation(title, blog_content, image_url):
         response = requests.post(
             url="https://openrouter.ai/api/v1/chat/completions",
             headers={
-                "Authorization": f"Bearer {DEEPSEEK_API_KEY}",
+                "Authorization": "Bearer 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",
                 "Content-Type": "application/json",
                 # "HTTP-Referer": "YOUR_SITE_URL",  # Replace with your actual site URL
                 # "X-Title": "YOUR_SITE_NAME",  # Replace with your actual site name
@@ -227,7 +227,6 @@ def make_SEO_optimisation(title, blog_content, image_url):
                         "content": prompt
                     }
                 ],
-                "max_tokens": 4000
             })
         )
         
