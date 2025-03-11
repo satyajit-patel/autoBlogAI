@@ -12,12 +12,27 @@ from openai import OpenAI
 
 load_dotenv()
 
-app = Flask(__name__, static_folder="dist", static_url_path="")
+app = Flask(__name__)
 CORS(app)
 
 @app.route("/")
-def serve_frontend():
-    return app.send_static_file("index.html")
+def health_check():
+    return "Server is up and running!"
+
+print("****************************************************************************************************")
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
+PEXELS_API_KEY = os.environ.get("PEXELS_API_KEY")
+DEEPSEEK_API_KEY=os.environ.get("DEEPSEEK_API_KEY")
+# Ensure PORT is set with a fallback
+PORT = int(os.environ.get("PORT", 5000))
+
+print(PORT)
+print(GROQ_API_KEY)
+print(DEEPSEEK_API_KEY)
+print(PEXELS_API_KEY)
+print("****************************************************************************************************")
+
+
 
 # ----------------------------------- Data Scrape -------------------------------------------------------------
 
@@ -46,17 +61,6 @@ def scrape(url):
         return error_msg
 
 # ----------------------------------- Multi Agent -------------------------------------------------------------
-
-print("****************************************************************************************************")
-GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
-PEXELS_API_KEY = os.environ.get("PEXELS_API_KEY")
-DEEPSEEK_API_KEY=os.environ.get("DEEPSEEK_API_KEY")
-PORT = int(os.environ.get("PORT"))
-print(PORT)
-print(GROQ_API_KEY)
-print(DEEPSEEK_API_KEY)
-print(PEXELS_API_KEY)
-print("****************************************************************************************************")
 
 def generate_blog_content(title, scrape_content):
     """Generate blog content using the Groq API."""

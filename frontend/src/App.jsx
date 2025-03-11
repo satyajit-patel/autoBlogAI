@@ -3,7 +3,6 @@ import axios from "axios";
 import { SparklesPreview } from "./components/sparkle/SparklesPreview";
 
 function App() {
-
   const [url, setUrl] = useState("");
   const [title, setTitle] = useState("");
   const [accessToken, setAccessToken] = useState("");
@@ -13,140 +12,144 @@ function App() {
   const [link, setLink] = useState("");
   const [error, setError] = useState("");
 
+  VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsloading(true);
     setError("");
     setLink("");
     try {
-      const response = await axios.post("/api/v1/auto-publish", {url, title, accessToken, blogId});
+      const response = await axios.post(`${VITE_BACKEND_URL}/api/v1/auto-publish`, {
+        url,
+        title,
+        accessToken,
+        blogId,
+      });
       setLink(response.data.link);
     } catch (err) {
       setError("Something went wrong, please try again.");
     } finally {
       setIsloading(false);
     }
-  }
+  };
 
   return (
-    <>
-      <div className="h-screen flex flex-col justify-center items-center bg-black">
-        <SparklesPreview />
-        <div>
-          <form
-            onSubmit={handleSubmit}
-            className="w-full max-w-lg p-6 bg-gray-800 bg-opacity-70 backdrop-blur-md rounded-xl shadow-xl transition-all duration-300"
-          >
-
+    <div className="h-screen flex flex-col justify-center items-center bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white">
+      <SparklesPreview />
+      <div className="w-full max-w-lg p-8 bg-gray-800 bg-opacity-80 backdrop-blur-lg rounded-2xl shadow-xl border border-gray-700">
+        <h2 className="text-2xl font-bold text-center mb-6 text-blue-400">
+          Auto-Publish Your Blog
+        </h2>
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-1">
+              Website URL for Web Scraping
+            </label>
             <input
               type="url"
-              placeholder="Website URL for Web Scraping"
-              className="w-full p-3 border border-gray-700 rounded bg-gray-700 text-white focus:ring-2 focus:ring-blue-400 transition-all duration-300 mb-3"
+              placeholder="Enter website URL"
+              className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 text-white focus:ring-2 focus:ring-blue-400 outline-none transition-all"
               required
               value={url}
               onChange={(e) => setUrl(e.target.value)}
             />
+          </div>
 
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-1">
+              Blog Title
+            </label>
             <input
               type="text"
-              placeholder="Blog Title"
-              className="w-full p-3 border border-gray-700 rounded bg-gray-700 text-white focus:ring-2 focus:ring-blue-400 transition-all duration-300 mb-3"
+              placeholder="Enter blog title"
+              className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 text-white focus:ring-2 focus:ring-blue-400 outline-none transition-all"
               required
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
+          </div>
 
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-1">
+              Access Token{" "}
+              <span className="text-gray-400 text-xs">
+                (Get it{" "}
+                <a
+                  className="text-blue-400 hover:text-blue-500 underline"
+                  href="https://developers.google.com/oauthplayground/?code=4/0AQSTgQGnApI9U-s6kiiURM5_MrKNjRYI1dYV81GNvw9kRhxk9mCk_I3iyRJz6z1YXs2BHQ&scope=https://www.googleapis.com/auth/blogger"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  here
+                </a>
+                )
+              </span>
+            </label>
             <input
               type="text"
-              placeholder="Access Token"
-              className="w-full p-3 border border-gray-700 rounded bg-gray-700 text-white focus:ring-2 focus:ring-blue-400 transition-all duration-300 mb-3"
+              placeholder="Enter access token"
+              className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 text-white focus:ring-2 focus:ring-blue-400 outline-none transition-all"
               required
               value={accessToken}
               onChange={(e) => setAccessToken(e.target.value)}
             />
+          </div>
 
-            <p className="text-gray-400 text-sm">
-              Get it from{" "}
-              <a
-                className="text-blue-400 hover:text-blue-500"
-                href="https://developers.google.com/oauthplayground"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                here
-              </a>
-            </p>
-
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-1">
+              Blogger ID{" "}
+              <span className="text-gray-400 text-xs">
+                (Find it{" "}
+                <a
+                  className="text-blue-400 hover:text-blue-500 underline"
+                  href="https://www.blogger.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  here
+                </a>
+                )
+              </span>
+            </label>
             <input
               type="text"
-              placeholder="Blogger ID"
-              className="w-full p-3 border border-gray-700 rounded bg-gray-700 text-white focus:ring-2 focus:ring-blue-400 transition-all duration-300 mb-3"
+              placeholder="Enter Blogger ID"
+              className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 text-white focus:ring-2 focus:ring-blue-400 outline-none transition-all"
               required
               value={blogId}
               onChange={(e) => setBlogId(e.target.value)}
             />
+          </div>
 
-            <p className="text-gray-400 text-sm">
-              Get it from{" "}
+          <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg shadow-lg transition-all">
+            Publish Blog
+          </button>
+
+          {isloading && (
+            <p className="mt-4 text-center text-yellow-400 animate-pulse">
+              Please wait... It's publishing!
+            </p>
+          )}
+
+          {link && (
+            <p className="mt-4 text-center text-green-400">
+              Your blog is published!{" "}
               <a
-                className="text-blue-400 hover:text-blue-500"
-                href="https://www.blogger.com"
+                href={link}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="underline text-blue-400"
               >
-                here
+                View it here
               </a>
             </p>
+          )}
 
-            <p className="text-center">
-              <button className="bg-slate-800 no-underline group cursor-pointer relative shadow-2xl shadow-zinc-900 rounded-full p-px text-xs font-semibold leading-6  text-white inline-block">
-                <span className="absolute inset-0 overflow-hidden rounded-full">
-                  <span className="absolute inset-0 rounded-full bg-[image:radial-gradient(75%_100%_at_50%_0%,rgba(56,189,248,0.6)_0%,rgba(56,189,248,0)_75%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                </span>
-                <div className="relative text-center flex space-x-2 items-center z-10 rounded-full bg-zinc-950 py-0.5 px-4 ring-1 ring-white/10 ">
-                  <span>
-                    Publish Blog
-                  </span>
-                  <svg
-                    fill="none"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M10.75 8.75L14.25 12L10.75 15.25"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="1.5"
-                    />
-                  </svg>
-                </div>
-                <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover:opacity-40" />
-              </button>
-            </p>
-
-            {isloading && (
-              <p className="mt-4 text-center text-yellow-400 animate-pulse">
-                Please wait... It's cooking!
-              </p>
-            )}
-
-            {link && (
-              <p className="mt-4 text-center text-green-400">
-                Your blog is published!{" "}
-                <a href={link} target="_blank" rel="noopener noreferrer" className="underline text-blue-400">
-                  View it here
-                </a>
-              </p>
-            )}
-
-            {error && <p className="mt-4 text-center text-red-400">{error}</p>}
-          </form>
-        </div>
+          {error && <p className="mt-4 text-center text-red-400">{error}</p>}
+        </form>
       </div>
-    </>
+    </div>
   );
 }
 
