@@ -22,7 +22,7 @@ def health_check():
 print("****************************************************************************************************")
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
 PEXELS_API_KEY = os.environ.get("PEXELS_API_KEY")
-DEEPSEEK_API_KEY=os.environ.get("DEEPSEEK_API_KEY")
+DEEPSEEK_API_KEY="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"
 # Ensure PORT is set with a fallback
 PORT = int(os.environ.get("PORT", 5000))
 
@@ -386,4 +386,5 @@ def auto_publish():
 # ----------------------------------- Run -------------------------------------------------------------
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=PORT, debug=True)
+    print(f"Starting Flask server on port {PORT}")
+    app.run(host="0.0.0.0", port=PORT)  # Removed debug=True
