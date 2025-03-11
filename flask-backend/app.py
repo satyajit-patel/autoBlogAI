@@ -22,7 +22,7 @@ def health_check():
 print("****************************************************************************************************")
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
 PEXELS_API_KEY = os.environ.get("PEXELS_API_KEY")
-DEEPSEEK_API_KEY="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"
+DEEPSEEK_API_KEY="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"
 
 print(GROQ_API_KEY)
 print(DEEPSEEK_API_KEY)
@@ -285,7 +285,7 @@ def auto_publish():
         blogId = data.get("blogId")
 
         print(url)
-        print(original)
+        print(original_title)
         print(accessToken)
         print(blogId)
         
