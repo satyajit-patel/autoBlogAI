@@ -1,7 +1,7 @@
 # AutoBlogAI
 This tools helps to publish your Blog automatically.
 
-## Checkout the live demo [here](https://auto-blog-ai-sable.vercel.app)
+## Checkout the live demo [here](https://auto-blog-ai-one.vercel.app/)
 
 ## Abstract
 The exponential growth of digital content demand, particularly in e-commerce and affiliate marketing, necessitates scalable solutions for high-quality blog generation. Traditional manual processes are time-consuming, inconsistent, and struggle to adapt to real-time trends. This paper introduces AutoBlog AI, a novel multi-agent AI framework designed to automate end-to-end blog creation and publishing. Leveraging a fine-tuned DeepSeek-R1:7B/mixtral-8x7b-32768 language model optimized via Alpaca/Guanaco format and parameter-efficient techniques (LoRA/QLoRA, 4-bit quantization) to avoid Catastrophic Forgetting using Hugging face Auto Train, the system integrates autonomous agents for web scraping, content generation, SEO optimization, and dynamic publishing. Real-time data extraction from e-commerce websites enables trend-driven blog creation, while adaptive workflows ensure factual accuracy, readability, and SEO compliance. Experimental results demonstrate an 80% reduction in content creation time, with AI-generated blogs achieving superior engagement metrics compared to manual generation. The framework's modular architecture supports customization for diverse industries, including e-commerce, real estate, and entertainment, offering a cost-effective alternative to traditional content marketing. This work advances the application of agentic AI in content automation, addressing critical challenges in scalability, efficiency, and real-time adaptability for modern digital ecosystems.
