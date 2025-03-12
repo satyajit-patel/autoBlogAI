@@ -22,7 +22,7 @@ def health_check():
 print("****************************************************************************************************")
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
 PEXELS_API_KEY = os.environ.get("PEXELS_API_KEY")
-DEEPSEEK_API_KEY="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"
+DEEPSEEK_API_KEY = os.environ.get("DEEPSEEK_API_KEY")
 
 print(GROQ_API_KEY)
 print(DEEPSEEK_API_KEY)
@@ -117,7 +117,7 @@ def generate_optimized_title(original_title, blog_content):
         1. Is more engaging and clickable than the original
         2. Contains keywords that are likely to rank well
         3. Accurately represents the content
-        4. Is under 60 characters
+        4. Is under 40 characters
         5. Has a hook that creates curiosity
 
         Original title: {original_title}
@@ -172,77 +172,131 @@ def get_image_url(title):
         return "https://images.pexels.com/photos/3560044/pexels-photo-3560044.jpeg"  # Default image as fallback
 
 
+# def make_SEO_optimisation(title, blog_content, image_url):
+#     try:
+#         client = OpenAI(
+#             base_url="https://openrouter.ai/api/v1",
+#             api_key="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",
+#         )
+
+#         prompt = f"""Transform this blog content into an SEO-optimized HTML page with inline CSS styling.
+                
+#                 TITLE: {title}
+
+#                 BLOG CONTENT:
+#                 {blog_content[:4000]}  # Limiting to avoid token limits
+
+#                 FEATURED IMAGE URL: {image_url}
+
+#                 Requirements:
+#                 1. Create HTML with inline CSS that makes the blog visually appealing and easy to read
+#                 2. Use a responsive design that works well on mobile and desktop
+#                 3. Include proper semantic HTML elements (h1, h2, p, etc.)
+#                 4. Optimize for SEO with:
+#                 - Proper heading hierarchy
+#                 - Meta description (commented at the top)
+#                 - Alt text for images
+#                 - Internal linking where appropriate
+#                 - Keyword-rich but natural content
+#                 5. Add a featured image at the top using the provided image URL
+#                 6. Create a table of contents
+#                 7. Include social sharing buttons
+#                 8. Add a CTA at the end
+#                 9. Make sure the design is modern, clean, and professional
+
+#                 Return ONLY the complete HTML+CSS code with no additional commentary."""
+
+#         completion = client.chat.completions.create(
+#         extra_headers={
+#             "HTTP-Referer": "<YOUR_SITE_URL>", # Optional. Site URL for rankings on openrouter.ai.
+#             "X-Title": "<YOUR_SITE_NAME>", # Optional. Site title for rankings on openrouter.ai.
+#         },
+#         extra_body={},
+#         model="deepseek/deepseek-r1-zero:free",
+#         messages=[
+#             {
+#             "role": "system", 
+#             "content": "You are an expert in SEO and web design, specializing in creating beautiful, optimized blog content with HTML and CSS."
+#             },
+#             {
+#             "role": "user",
+#             "content": prompt
+#             }
+#         ]
+#         )
+#         content = completion.choices[0].message.content
+#         print("SEO optimization completed")
+#         return content
+        
+#     except Exception as e:
+#         error_msg = f"[ERROR] SEO optimization failed: {e}"
+#         print(error_msg)
+#         return f"[ERROR] SEO optimization failed: {str(e)}"
+
+
+
+
 def make_SEO_optimisation(title, blog_content, image_url):
-    """Optimize blog content for SEO using DeepSeek API through OpenRouter."""
-    if not blog_content or "[ERROR]" in blog_content:
-        return "[ERROR] Invalid blog content"
+
+    prompt = f"""Transform this blog content into an SEO-optimized HTML page with inline CSS styling.
+                
+                TITLE: {title}
+
+                BLOG CONTENT:
+                {blog_content[:4000]}  # Limiting to avoid token limits
+
+                FEATURED IMAGE URL: {image_url}
+
+                Requirements:
+                1. Create HTML with inline CSS that makes the blog visually appealing and easy to read
+                2. Use a responsive design that works well on mobile and desktop
+                3. Include proper semantic HTML elements (h1, h2, p, etc.)
+                4. Optimize for SEO with:
+                - Proper heading hierarchy
+                - Meta description (commented at the top)
+                - Alt text for images
+                - Internal linking where appropriate
+                - Keyword-rich but natural content
+                5. Add a featured image at the top using the provided image URL
+                6. Create a table of contents
+                7. Include social sharing buttons
+                8. Add a CTA at the end
+                9. Make sure the design is modern, clean, and professional
+
+                Return ONLY the complete HTML+CSS code with no additional commentary."""
+
+
     try:
-        import requests
-        import json
-        
-        prompt = f"""Transform this blog content into an SEO-optimized HTML page with inline CSS styling.
-        
-        TITLE: {title}
-
-        BLOG CONTENT:
-        {blog_content[:4000]}  # Limiting to avoid token limits
-
-        FEATURED IMAGE URL: {image_url}
-
-        Requirements:
-        1. Create HTML with inline CSS that makes the blog visually appealing and easy to read
-        2. Use a responsive design that works well on mobile and desktop
-        3. Include proper semantic HTML elements (h1, h2, p, etc.)
-        4. Optimize for SEO with:
-        - Proper heading hierarchy
-        - Meta description (commented at the top)
-        - Alt text for images
-        - Internal linking where appropriate
-        - Keyword-rich but natural content
-        5. Add a featured image at the top using the provided image URL
-        6. Create a table of contents
-        7. Include social sharing buttons
-        8. Add a CTA at the end
-        9. Make sure the design is modern, clean, and professional
-
-        Return ONLY the complete HTML+CSS code with no additional commentary."""
-
-        response = requests.post(
-            url="https://openrouter.ai/api/v1/chat/completions",
-            headers={
-                "Authorization": "Bearer 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",
-                "Content-Type": "application/json",
-                # "HTTP-Referer": "YOUR_SITE_URL",  # Replace with your actual site URL
-                # "X-Title": "YOUR_SITE_NAME",  # Replace with your actual site name
-            },
-            data=json.dumps({
-                "model": "deepseek/deepseek-r1:free",
-                "messages": [
-                    {
-                        "role": "system", 
-                        "content": "You are an expert in SEO and web design, specializing in creating beautiful, optimized blog content with HTML and CSS."
-                    },
-                    {
-                        "role": "user", 
-                        "content": prompt
-                    }
-                ],
-            })
+        client = Groq(
+            api_key=os.environ.get("GROQ_API_KEY"),
         )
-        
-        # Parse the JSON response
-        result = response.json()
-        
-        # Extract the content from the response
-        content = result["choices"][0]["message"]["content"]
-        
-        print("SEO optimization completed")
-        return content
-        
+
+        chat_completion = client.chat.completions.create(
+            messages=[
+                {
+                    "role": "system", 
+                    "content": "You are an expert in SEO and web design, specializing in creating beautiful, optimized blog content with HTML and CSS."
+                },
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            model="deepseek-r1-distill-llama-70b",
+        )
+
+        # return chat_completion.choices[0].message.content
+        return chat_completion.choices[0].message.content.strip() # without thinking part
+
     except Exception as e:
         error_msg = f"[ERROR] SEO optimization failed: {e}"
         print(error_msg)
         return f"[ERROR] SEO optimization failed: {str(e)}"
+
+
+
+
+
 
 
 def publish_blog(title, accessToken, blogId, optimised_content):
